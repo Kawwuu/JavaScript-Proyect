@@ -6,7 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JavaScript</title>
 </head>
-<body>
-    <script src="app.js"></script>
+<body style="background-color: crimson;">
+    <section style="display: flex;">
+        <div>
+            <h2>Facturas</h2>
+            <img src="./img/Facturas_edit1.png" alt="Facturas" width="300" height="300">
+            <button onclick = "elegirCarrito(0)">Comprar</button>
+        </div>
+        <div>
+            <h2>Tarta Mixta</h2>
+            <img src="./img/Tarta_mixta1.png" alt="Tarta mixta" width="300" height="300">
+            <button onclick = "elegirCarrito(1)">Comprar</button>
+        </div>
+        <div>
+            <h2>Sándwich veggie</h2>
+            <img src="./img/Sandiwch3.png" alt="Sándwich" width="300" height="300">
+            <button onclick = "elegirCarrito(2)">Comprar</button>
+        </div>
+        <div>
+            <button onclick = "terminar()">Finalizar</button>
+            <button onclick = "restart()">Restart</button>
+        </div>
+        
+    </section>
+    <script src="./js/app.js"></script>
 </body>
 </html>
