@@ -79,10 +79,8 @@ function colocarCarrito(object, carritoCompra){
 }
 
 function totalCompra(){
-    let total = 0;
-    for (let i=0; i<carritoCompra.length; i++) {
-        total+= carritoCompra[i].precio;
-    }
+    let total = carritoCompra.reduce((add, u) => add+u.precio, 0);
+
     return total;
 }
 
