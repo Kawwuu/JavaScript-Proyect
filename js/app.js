@@ -1,98 +1,102 @@
-let productosCompra = [];
-let carritoCompra = [];
-let panaderia;
+let littleLetters;
+let numberErrors = 0;
+let numberHits = 0; 
 
-class Producto{
-    constructor(nombre, precio, stock) {
-        this.precio = precio;
-        this.stock = stock;
-        this.nombre = nombre;
+const letters = [
+    'GATO',
+    'ARGENTINA',
+    'ZAPATO',
+    'TAZA',
+    'DINOSAURIO',
+    'MOCHILA',
+    'CUADRADO',
+    'ÑOQUIS',
+];
+
+const btn = id('play');
+const image = id('image');
+const btn_letters = document.querySelectorAll('#letters button');
+
+
+function id(str) {
+    return document.getElementById(str);
+}
+
+function random(numberMin, numberMax){
+    const values = numberMax - numberMin;
+    const wordsRandom = Math.floor(Math.random( ) * values) + numberMin;
+    return wordsRandom;
+}
+
+
+btn.addEventListener('click', start);
+
+function start(event) {
+    image.src = 'img/ahorcado.png';
+    btn.disabled = true;
+    numberErrors = 0;
+    numberHits = 0;
+
+    const parrafo = id('guess');
+    parrafo.innerHTML = '';
+
+    const words = letters.length;
+    const minimumValue = 0;
+    const wordsRandom = random(minimumValue, words);
+    littleLetters = letters[wordsRandom];
+    const numberWords = littleLetters.length;
+
+    for(let i=0; i<btn_letters.length; i++){
+        btn_letters[i].disabled = false;
+    }
+    for(let i=0; i<numberWords; i++){
+        const span = document.createElement('span');
+        parrafo.appendChild(span);
     }
 }
 
-class Carrito{
-    constructor(nombre, precio){
-        this.precio = precio;
-        this.nombre = nombre;
+
+
+for(let i=0; i<btn_letters.length; i++){
+    btn_letters[i].addEventListener('click', clickLetters);
+}
+function clickLetters(event){
+    const spans = document.querySelectorAll('#guess span')
+    const button = event.target;
+    button.disabled = true;
+
+    const letter = button.innerHTML.toUpperCase( );
+    const word = littleLetters.toUpperCase( );
+
+    let right = false;
+    for(let i=0; i<word.length; i++){
+        if(letter == word[i]){
+            spans[i].innerHTML = letter;
+            numberHits++;
+            right = true;
+        }
+    }
+
+    if(right == false){
+        numberErrors++;
+        const source = `img/ahorcado${numberErrors}.png`;
+        image.src = source;
+    }
+
+    if(numberErrors == 7){
+        id('result').innerHTML ="Perdiste, la palabra era " + littleLetters;
+        gameOver( );
+    }else if(numberHits == littleLetters.length){
+        id('result').innerHTML = "Ganaste, sos crack!!";
+        gameOver( );
     }
 }
 
-let i = 0;
-productosCompra[i++] = new Producto("Facturas",80,50);
-productosCompra[i++] = new Producto("Tarta Mixta",300,100);
-productosCompra[i++] = new Producto("Sándwich",200,30);
-
-function elegirCarrito(panaderia){
-    switch(panaderia){
-        case 0:
-            if(productosCompra[panaderia].stock <1){
-                alert("Nos quedamos sin stock de facturas");
-            } else{
-                colocarCarrito(productosCompra[panaderia],carritoCompra);
-
-                alert("Factura agregada");
-                console.log("Factura agregada");
-            }
-            console.log(carritoCompra);
-
-            break;
-
-            case 1:
-                if(productosCompra[panaderia].stock < 1) {
-                    alert("Nos quedamos sin stock de tarta mixta")
-                } else{
-                    colocarCarrito(productosCompra[panaderia], carritoCompra);
-
-                    alert("Tarta mixta agregada");
-                    console.log("Tarta mixta agregada");
-                }
-
-                console.log(carritoCompra);
-
-                break;
-
-            case 2:
-                if(productosCompra[panaderia].stock < 1) {
-                    alert("Nos quedamos sin stock de sándwich")
-                } else{
-                    colocarCarrito(productosCompra[panaderia], carritoCompra);
-    
-                    alert("Sándwich agregado");
-                    console.log("Sándwich agregado");
-                }
-    
-                console.log(carritoCompra);
-    
-                break;
-
-            default:
-                alert("Error: No se procesó la solicitud")
-                break;
+function gameOver( ){
+    for(let i=0; i<btn_letters.length; i++){
+        btn_letters[i].disabled = true;
     }
+    btn.disabled = false;
 }
 
-function colocarCarrito(object, carritoCompra){
-    let x = object.nombre;
-    let s = object.precio;
-    const i = new Carrito(x,s);
-    carritoCompra.push(i);
-}
-
-function totalCompra(){
-    let total = carritoCompra.reduce((add, u) => add+u.precio, 0);
-
-    return total;
-}
-
-function terminar(){
-    console.log("Los productos en el carrito son: ");
-    for (let i=0; i<carritoCompra.length; i++){
-        console.log(" "+carritoCompra[i].nombre)
-    }
-    alert(`El total de la compra de sus productos es: $${(totalCompra().toFixed(2))}`);
-}
-
-function restart(){
-    carritoCompra =[];
-    console.log("restart successfully");
-}
+gameOver( )
