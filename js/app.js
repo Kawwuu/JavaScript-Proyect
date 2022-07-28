@@ -6,12 +6,17 @@ const letters = [
     'GATO',
     'ARGENTINA',
     'ZAPATO',
-    'TAZA',
+    'ALBA',
     'DINOSAURIO',
     'MOCHILA',
     'CUADRADO',
     'ÑOQUIS',
 ];
+
+
+const lettersArray = JSON.stringify(letters);
+localStorage.setItem("letters", lettersArray);
+const arrayLetters = localStorage.getItem("letters");
 
 const btn = id('play');
 const image = id('image');
