@@ -2,18 +2,6 @@ let littleLetters;
 let numberErrors = 0;
 let numberHits = 0; 
 
-const letters = [
-    'GATO',
-    'ARGENTINA',
-    'ZAPATO',
-    'ALBA',
-    'DINOSAURIO',
-    'MOCHILA',
-    'CUADRADO',
-    'ÑOQUIS',
-];
-
-
 const lettersArray = JSON.stringify(letters);
 localStorage.setItem("letters", lettersArray);
 const arrayLetters = localStorage.getItem("letters");
@@ -44,6 +32,7 @@ function start(event) {
 
     const parrafo = id('guess');
     parrafo.innerHTML = '';
+    id('result').innerHTML = '';
 
     const words = letters.length;
     const minimumValue = 0;
