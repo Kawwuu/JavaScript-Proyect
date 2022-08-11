@@ -7,6 +7,7 @@ const image = id('image');
 const btn_letters = document.querySelectorAll('#letters button');
 const buttonUser = document.querySelector("#button-user");
 
+
 async function userDate(){
     const {
     value: formData
@@ -41,24 +42,21 @@ async function userDate(){
             modal.querySelector("#UserName").addEventListener("keyup", confirmOnEnter);
         }
         });
-        if (formAutenticar && formAutenticar[0] != '' && formAutenticar[1] != '') {
+        if (formData && formData[0] != '' && formData[1] != '') {
         Swal.fire({
-            title: 'Dato Correcto',
+            title: `Hola ${formData[0]}`,
             icon: 'success',
-            backdrop: false
+            backdrop: false,
         });
-    } else {
+        let date = localStorage.setItem("usuario", JSON.stringify(`${formData[0]}`));
+        JSON.parse(localStorage.getItem(date));
+        } else {
         Swal.fire({
             title: 'Dato incorrecto',
             icon: 'warning',
             backdrop: false
         });
     }}
-
-const dateX = JSON.stringify(userDate);
-localStorage.setItem("date", userDate);
-const xDate = localStorage.getItem("date");
-
 
 btn.addEventListener ("click", () => {
     let timerInterval
@@ -83,6 +81,11 @@ Swal.fire({
     }
 })
 })
+
+function playerRules() {
+    document.getElementById("rules").style.display = "none";
+    document.getElementById("buttonRules").style.display = "none";
+}
 
 function id(str) {
     return document.getElementById(str);
@@ -151,10 +154,10 @@ function clickLetters(event){
     }
 
     if(numberErrors == 7){
-        id('result').innerHTML ="Perdiste, la palabra era " + littleLetters;
+        id('result').innerHTML ="Perdiste, la palabra era " + littleLetters + " " + "Te quedan 24 horas de vida";
         gameOver( );
     }else if(numberHits == littleLetters.length){
-        id('result').innerHTML = "Ganaste, sos crack!!";
+        id('result').innerHTML = "Ganaste, podrás vivir un día mas!!";
         gameOver( );
     }
 }
@@ -167,3 +170,18 @@ function gameOver( ){
 }
 
 gameOver( )
+
+
+fetch('https://jsonplaceholder.typicode.com/posts', {
+    method: 'POST',
+    body: JSON.stringify({
+    title: 'Ahorcado',
+    body: 'Usuario',
+    userId: 1,
+    }),
+    headers: {
+    'Content-type': 'application/json; charset=UTF-8',
+    },
+})
+.then((response) => response.json())
+.then((date) => console.log(date));

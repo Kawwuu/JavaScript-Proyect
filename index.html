@@ -13,20 +13,36 @@
 <body>
     <header>
         <h1>Ahorcado</h1>
+        <div id="rules">
+            <div class="rule">
+                La primer regla es respetar las reglas
+            </div>
+            <div class="rule">
+                Comprende que esto no es solamente un juego, si mueres en el juego, mueres realmente
+            </div>
+            <div class="rule">
+                Ingresa tu nombre y genera la palabra para arrancar, luego de que aceptes las reglas
+            </div>
+            <div class="rule">
+                No intentes nada que afecte el funcionamiento del juego, morirás
+            </div>
+            <div class="rule">
+                Una vez que aceptes las reglas, estas mismas desapareceran
+            </div>
+            <div id="butttonRules">
+                <button onclick="playerRules()" class="buttonAgree">Agree</button>
+            </div>
+        </div>
     </header>
     <main>
-        <img id="image" src="./img/ahorcado.png" alt="Ahorcado">
+        <picture>
+            <img src="./img/ahorcado.png" alt="ahorcado" id="image">
+        </picture>
         <div>
-            <p id="guess">
-                
-            </p>
-            <button onclick="userDate()">
-                Ingresar nombre
-            </button>
+            <p id="guess"></p>
+            <button onclick="userDate()">Ingresar nombre</button>
             <button id="play">Generar palabra</button>
-            
             <p id="result"></p>
-
             <div id="letters">
                 <button>A</button>
                 <button>B</button>
